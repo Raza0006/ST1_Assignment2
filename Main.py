@@ -1,11 +1,16 @@
 from Analysis import CSVReader
 from MachineLearning import MachineLearning
-import nicegui
-import gui
+from gui import GUI 
+
 
 def main():
     csvReader = CSVReader()
     machineLearning = MachineLearning()
+    gui = GUI()
+
+
+
+
     dataFrame = csvReader.readCsv('Cellphone.csv')
     print(dataFrame)
     csvReader.plotPriceDistribution(dataFrame)
@@ -29,7 +34,11 @@ def main():
 
     # Present the dataframe with values in numeric form.
     print(dataFrameEncoded)
-    machineLearning.LinearRegression('Cellphone.csv') # call linear regression model
 
+    # call linear regression model
+    machineLearning.LinearRegression('Cellphone.csv') 
+
+    # Call the GUI
+    gui.loadGUI()
 if __name__ == "__main__":
     main()

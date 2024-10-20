@@ -1,5 +1,3 @@
-# csv_reader.py
-
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
@@ -100,7 +98,7 @@ class CSVReader:
         plt.title(f'Box Plot:- {predictor} vs {target}')
         plt.show()
 
-
+    # MOVE ANOVA TO MachineLearning.py 
     def anova(self, df, target, predictor):
         # Box plot visualises the distribution of the constant variable for every grouping.
         plt.figure(figsize=(8,6))

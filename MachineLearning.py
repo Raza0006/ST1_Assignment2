@@ -1,6 +1,6 @@
+import matplotlib.pyplot as plt
 from sklearn.linear_model import LinearRegression
 from Analysis import CSVReader
-import matplotlib.pyplot as plt
 
 class MachineLearning:
 
@@ -13,7 +13,7 @@ class MachineLearning:
         dataFrame = csvReader.readCsv(filePath)
         X = dataFrame['Price']
         Y = dataFrame['ppi']
-        Regression.fit(X.values.reshape(-1, 1), Y)
+        Regression.fit(X.values.reshape(-1, 1), Y) # pass single collumn to data frame
         print(Regression.score(X.values.reshape(-1, 1), Y)) # Get the coefficient to determine the gradient
 
         # below to be moved later to gui, just for testing purposes
@@ -23,3 +23,4 @@ class MachineLearning:
         plt.ylabel('PPI')
         plt.title('Linear Regression')
         plt.show()
+    

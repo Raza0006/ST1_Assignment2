@@ -53,3 +53,25 @@ class CSVReader:
         '''
         
         return dataFrame
+    
+    def visualizeScatterPlot(): # MANASWINI PLEASE IMPLIMENT THIS FUNCTION
+        '''
+        If the target variable is continuous and the predictor is
+        also continuous, visualise the relationship between the 
+        two variables using scatter plot and measure the strength 
+        of relation using a metric called Pearson's correlation value.
+        '''
+        pass #Delete once implemented
+
+
+
+    def selectFeaturesContinous(): # MANASWINI PLEASE IMPLIMENT THIS FUNCTION
+        # Select features based on correlation value
+        '''
+        Statistical feature selection (continuous Vs. continuous) using correlation value.
+        '''
+        pass #Delete once implemented
+
+
+    def analyzeBoxPlot(): # MANASWINI PLEASE IMPLIMENT THIS FUNCTION
+        pass #Delete once implemented

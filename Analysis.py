@@ -54,14 +54,20 @@ class CSVReader:
         
         return dataFrame
     
-    def visualizeScatterPlot(): # MANASWINI PLEASE IMPLIMENT THIS FUNCTION
+    def visualizeScatterPlot(self, target, predictor): # Pasha's code
         '''
         If the target variable is continuous and the predictor is
         also continuous, visualise the relationship between the 
         two variables using scatter plot and measure the strength 
         of relation using a metric called Pearson's correlation value.
         '''
-        pass #Delete once implemented
+        plt.scatter(target, predictor)
+        plt.xlabel('Target')
+        plt.ylabel('Predictor')
+        plt.title('Scatter Plot with Pearson\'s Correlation Value')
+        correlationValue = target.corr(predictor)
+        plt.text(0.5, -0.5, 'Pearson\'s Correlation: {:.2f}'.format(correlationValue), ha='center', va='center')
+        plt.show()
 
 
 
@@ -74,4 +80,5 @@ class CSVReader:
 
 
     def analyzeBoxPlot(): # MANASWINI PLEASE IMPLIMENT THIS FUNCTION
+
         pass #Delete once implemented

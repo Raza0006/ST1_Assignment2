@@ -9,8 +9,8 @@ def main():
     print(dataFrame)
     csvReader.plotPriceDistribution(dataFrame)
     csvReader.visualizeScatterPlot(dataFrame['Price'], dataFrame['ppi'])
-    cleaned_data = csvReader.handleMissingValues(dataFrame)
-    print(cleaned_data)
+    cleanedData = csvReader.handleMissingValues(dataFrame)
+    print(cleanedData)
 
     # Examine and interpret continuous predictors
     csvReader.selectFeaturesContinous(dataFrame, 'Price', 'cpu freq')
@@ -19,15 +19,15 @@ def main():
     csvReader.analyzeBoxPlot(dataFrame, 'Price', 'cpu core')
     csvReader.anova(dataFrame, 'Price', 'cpu core')
 
-    final_features = csvReader.features(dataFrame, 'Price', ['ppi', 'cpu freq', 'weight'], ['cpu core', 'internal mem'])
-    print(f"Selected final features: {final_features}")
+    finalFeatures = csvReader.features(dataFrame, 'Price', ['ppi', 'cpu freq', 'weight'], ['cpu core', 'internal mem'])
+    print(f"Selected final features: {finalFeatures}")
 
     # Use one-hot encoding to transform the category columns into numerical representation.
-    cate_features = ['cpu core', 'internal mem']
-    df_encoded = csvReader.convert_categorical_to_numeric(dataFrame, cate_features)
+    cateFeatures = ['cpu core', 'internal mem']
+    dataFrameEncoded = csvReader.convertCategoricalToNumeric(dataFrame, cateFeatures)
 
     # Present the dataframe with values in numeric form.
-    print(df_encoded)
+    print(dataFrameEncoded)
 
 if __name__ == "__main__":
     main()

@@ -43,23 +43,23 @@ class CSVReader:
         plt.show()
 
     def handleMissingValues(self, df):
-        missing_values_threshold = 0.05 * len(df)
-        df_dropped_rows = df.dropna(thresh=missing_values_threshold)
+        missingValuesThreshold = 0.05 * len(df)
+        dataFrameDroppedRows = df.dropna(thresh=missingValuesThreshold)
 
         # median values for continous values
-        continuous_col = df_dropped_rows.select_dtypes(include=['float64', 'int64']).columns
+        continousCollumn = dataFrameDroppedRows.select_dtypes(include=['float64', 'int64']).columns
 
         # replace missing values
-        for col in continuous_col:
-            df_dropped_rows[col].fillna(df_dropped_rows[col].median(), inplace=True)
+        for col in continousCollumn:
+            dataFrameDroppedRows[col].fillna(dataFrameDroppedRows[col].median(), inplace=True)
 
-        categorical_col = df_dropped_rows.select_dtypes(include=['object']).columns
+        categorical_col = dataFrameDroppedRows.select_dtypes(include=['object']).columns
 
         for col in categorical_col:
-            df_dropped_rows[col].fillna(df_dropped_rows[col].mode()[0], inplace=True)
+            dataFrameDroppedRows[col].fillna(dataFrameDroppedRows[col].mode()[0], inplace=True)
 
-        for col in continuous_col:
-            df_dropped_rows[col] = df_dropped_rows[col].interpolate(method='linear', inplace=False)
+        for col in continousCollumn:
+            dataFrameDroppedRows[col] = dataFrameDroppedRows[col].interpolate(method='linear', inplace=False)
 
         def custom_price(df):
             # When price is missing, Calculating simlar items average price.
@@ -68,9 +68,9 @@ class CSVReader:
             return df
     
         # Missing values logic
-        df_dropped_rows = custom_price(df_dropped_rows)
+        dataFrameDroppedRows = custom_price(dataFrameDroppedRows)
         
-        return df_dropped_rows # Returning dropped rows
+        return dataFrameDroppedRows # Returning dropped rows
     
     def visualizeScatterPlot(self, target, predictor):
         plt.scatter(target, predictor)
@@ -113,43 +113,43 @@ class CSVReader:
         groups = [df[df[predictor] == category][target] for category in categories]
 
         # Performing ANOVA test
-        f_stat, p_value = stats.f_oneway(*groups)
+        fStat, pValue = stats.f_oneway(*groups)
 
         # Results
         print(f'ANOVA Results: {predictor} vs {target}:')
-        print(f'F-statistic: {f_stat}')
-        print(f'P-value: {p_value}')
+        print(f'F-statistic: {fStat}')
+        print(f'P-value: {pValue}')
 
         # Interpretation of results
-        if p_value < 0.05:
+        if pValue < 0.05:
             print(f"Result: Relationship between {predictor} and {target} (Reject H0)")
         else:
             print(f"No significant result: No relationship between {predictor} and {target} (Fail to reject H0)")
 
 
-    def features(self, df, target_var, continuous_fea, categorical_fea):
-        sel_features = []
+    def features(self, df, targetVariable, continousFea, categoricalFea):
+        selFeatures = []
         
         # For continuous variables, look up the Pearson coefficient.
-        for feature in continuous_fea:
-            correlation, _ = pearsonr(df[target_var], df[feature])
+        for feature in continousFea:
+            correlation, _ = pearsonr(df[targetVariable], df[feature])
             if abs(correlation) > 0.3:  # Select a criterion (e.g., > 0.3) to maintain significant correlations.
 
-                sel_features.append(feature)
+                selFeatures.append(feature)
         
         # For categorical variables, the ANOVA test
-        for feature in categorical_fea:
+        for feature in categoricalFea:
             categories = df[feature].unique()
-            groups = [df[df[feature] == category][target_var] for category in categories]
+            groups = [df[df[feature] == category][targetVariable] for category in categories]
             f_stat, p_value = stats.f_oneway(*groups)
             if p_value < 0.05:  # ANOVA results
-                sel_features.append(feature)
+                selFeatures.append(feature)
         
-        return sel_features
+        return selFeatures
     
 
-    def convert_categorical_to_numeric(self, df, categorical_fea):
+    def convertCategoricalToNumeric(self, df, categoricalFea):
         # Encoding to transform the category columns into numerical representation.
-        df_enc = pd.get_dummies(df, columns=categorical_fea, drop_first=True)
+        dataFrameEncoded = pd.get_dummies(df, columns=categoricalFea, drop_first=True)
         #Presenting the dataframe with values in numeric form.
-        return df_enc
+        return dataFrameEncoded

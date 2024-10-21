@@ -37,8 +37,8 @@ def main():
 
     # call linear regression model
     machineLearning.LinearRegression('Cellphone.csv') 
-
+    machineLearning.DecisionTree('Cellphone.csv')
     # Call the GUI
-    gui.loadGUI()
+    # gui.loadGUI()
 if __name__ == "__main__":
     main()

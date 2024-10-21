@@ -37,7 +37,19 @@ def main():
 
     # call linear regression model
     machineLearning.LinearRegression('Cellphone.csv') 
+
+    # Call SVM Regressor
+    machineLearning.SVMRegressor('Cellphone.csv')
+
+    # Call Random Forest
+    machineLearning.RandomForest('Cellphone.csv')
+
+    # Call Ada Boost
+    machineLearning.AdaBoost('Cellphone.csv')
+
+    # Call Decision Tree
     machineLearning.DecisionTree('Cellphone.csv')
+    
     # Call the GUI
     # gui.loadGUI()
 if __name__ == "__main__":

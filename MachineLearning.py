@@ -50,11 +50,12 @@ class MachineLearning:
         prediction=DT.predict(X.values.reshape(-1,1))
         print('R^2 Value:',metrics.r2_score(Y, DT.predict(X.values.reshape(-1,1)))) # Measuring how well training data fits
        
-        '''
-        %matplotlib inline #plotting most important columns
-        feature_importances = pd.Series(DT.feature_importances_, index=X.columns)
-        feature_importances.nlargest(10).plot(kind='barh')
-   #random forest
+
+        # %matplotlib inline #plotting most important columns
+        # feature_importances = pd.Series(DT.feature_importances_, index=X.columns)
+        # feature_importances.nlargest(10).plot(kind='barh')
+    
+    #random forest
     def RandomForest(self, filePath):
         csvReader = CSVReader()
         dataFrame = csvReader.readCsv(filePath)

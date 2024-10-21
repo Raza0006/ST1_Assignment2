@@ -1,3 +1,11 @@
+'''
+*******************************
+Author: Raza, Manaswini, Rami, Lithika
+u123456 Assessment 1_Program1_(a) 10/ 03/2024
+Programming:
+*******************************
+''' 
+
 from Analysis import CSVReader
 from MachineLearning import MachineLearning
 from gui import GUI 
@@ -35,6 +43,7 @@ def main():
     # Present the dataframe with values in numeric form.
     print(dataFrameEncoded)
 
+
     # call linear regression model
     machineLearning.LinearRegression('Cellphone.csv') 
 
@@ -49,7 +58,15 @@ def main():
 
     # Call Decision Tree
     machineLearning.DecisionTree('Cellphone.csv')
-    
+
+
+    # call select best model
+    machineLearning.selectBestModel('Cellphone.csv')
+
+    # call load model
+    machineLearning.loadModel()
+
+
     # Call the GUI
     # gui.loadGUI()
 if __name__ == "__main__":

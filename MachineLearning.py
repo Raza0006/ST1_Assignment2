@@ -1,3 +1,14 @@
+
+'''
+*******************************
+Author: Raza, Manaswini, Rami, Lithika
+u123456 Assessment 1_Program1_(a) 10/ 03/2024
+Programming:
+*******************************
+'''        
+
+
+
 import matplotlib.pyplot as plt
 from sklearn.linear_model import LinearRegression
 from sklearn.tree import DecisionTreeRegressor
@@ -118,6 +129,7 @@ class MachineLearning:
         plt.xlabel('Price')
         plt.ylabel('PPI')
         plt.title('SVM Regression')
+
 #Best model
     def selectBestModel(self, filePath):
         csvReader = CSVReader()

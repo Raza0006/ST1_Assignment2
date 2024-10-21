@@ -1,5 +1,15 @@
+'''
+*******************************
+Author: Raza
+u123456 Assessment 1_Program1_(a) 10/ 03/2024
+Programming:
+*******************************
+''' 
+
 from Analysis import CSVReader
 import nicegui
+
+
 
 class GUI:
     

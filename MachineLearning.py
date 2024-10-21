@@ -2,6 +2,10 @@ import matplotlib.pyplot as plt
 from sklearn.linear_model import LinearRegression
 from sklearn.tree import DecisionTreeRegressor
 from sklearn import metrics
+from sklearn.ensemble import RandomForestRegressor
+from sklearn.metrics import mean_squared_error, r2_score
+from sklearn.ensemble import AdaBoostRegressor
+from sklearn.svm import SVR
 from Analysis import CSVReader
 
 class MachineLearning:
@@ -35,9 +39,70 @@ class MachineLearning:
         %matplotlib inline #plotting most important columns
         feature_importances = pd.Series(DT.feature_importances_, index=Predictors)
         feature_importances.nlargest(10).plot(kind='barh')
-    
-
+   #random forest
+    def RandomForest(self, filePath):
+        csvReader = CSVReader()
+        dataFrame = csvReader.readCsv(filePath)
+        X = dataFrame[['Price']]  # Independent variable
+        Y = dataFrame['ppi']  # Dependent variable
         
+        model = RandomForestRegressor(n_estimators=100, random_state=0)
+        model.fit(X, Y)
+        
+        predictions = model.predict(X)
+        print("Random Forest R2 score:", r2_score(Y, predictions))
+        print("Random Forest RMSE:", mean_squared_error(Y, predictions, squared=False))
+        
+        # Optional: Plot results for testing
+        plt.scatter(X, Y)
+        plt.plot(X, predictions, color='green')
+        plt.xlabel('Price')
+        plt.ylabel('PPI')
+        plt.title('Random Forest Regression')
+        plt.show()
+    #AdaBoost
+    def AdaBoost(self, filePath):
+        csvReader = CSVReader()
+        dataFrame = csvReader.readCsv(filePath)
+        X = dataFrame[['Price']]  # Independent variable
+        Y = dataFrame['ppi']  # Dependent variable
+        
+        model = AdaBoostRegressor(n_estimators=50, random_state=0)
+        model.fit(X, Y)
+        
+        predictions = model.predict(X)
+        print("AdaBoost R2 score:", r2_score(Y, predictions))
+        print("AdaBoost RMSE:", mean_squared_error(Y, predictions, squared=False))
+        
+        # Optional: Plot results for testing
+        plt.scatter(X, Y)
+        plt.plot(X, predictions, color='blue')
+        plt.xlabel('Price')
+        plt.ylabel('PPI')
+        plt.title('AdaBoost Regression')
+        plt.show()
+    #SVMRegressor
+    def SVMRegressor(self, filePath):
+        csvReader = CSVReader()
+        dataFrame = csvReader.readCsv(filePath)
+        X = dataFrame[['Price']]  # Independent variable
+        Y = dataFrame['ppi']  # Dependent variable
+        
+        model = SVR(kernel='rbf')  # You can experiment with different kernels like 'linear', 'poly', etc.
+        model.fit(X, Y)
+        
+        predictions = model.predict(X)
+        print("SVM R2 score:", r2_score(Y, predictions))
+        print("SVM RMSE:", mean_squared_error(Y, predictions, squared=False))
+        
+        # Optional: Plot results for testing
+        plt.scatter(X, Y)
+        plt.plot(X, predictions, color='purple')
+        plt.xlabel('Price')
+        plt.ylabel('PPI')
+        plt.title('SVM Regression')
+            
+            
         
         
     

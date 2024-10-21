@@ -11,7 +11,8 @@ from Analysis import CSVReader
 class MachineLearning:
 
     def __init__(self):
-        pass    
+        pass   
+        #Linear Regression
     def LinearRegression(self, filePath): # Pasha's Code
         csvReader = CSVReader()
         
@@ -29,6 +30,7 @@ class MachineLearning:
         plt.ylabel('PPI')
         plt.title('Linear Regression')
         plt.show()
+        #Decision Tree
     def DecisionTree(self, filePath) #Rami 
         regModel = DecisionTreeRegressor(max_depth=5,criterion='friedman_mse') #implementing good range
         print(regModel) # Printing all the parameters of Decision Tree

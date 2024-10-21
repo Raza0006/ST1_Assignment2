@@ -1,7 +1,7 @@
 '''
 *******************************
 Author: Raza, Manaswini, Lithika
-u123456 Assessment 1_Program1_(a) 10/ 03/2024
+u123456 Assessment 1_Program1_(a) 22/ 11/2024
 Programming:
 *******************************
 ''' 
@@ -79,7 +79,7 @@ class CSVReader:
         
         return dataFrameDroppedRows # Returning dropped rows
     
-    def visualizeScatterPlot(self, target, predictor):
+    def visualizeScatterPlot(self, target, predictor): # Pasha's code
         plt.scatter(target, predictor)
         plt.xlabel('Target')
         plt.ylabel('Predictor')

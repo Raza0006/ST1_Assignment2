@@ -2,7 +2,7 @@
 '''
 *******************************
 Author: Raza, Manaswini, Rami, Lithika
-u123456 Assessment 1_Program1_(a) 10/ 03/2024
+u123456 Assessment 1_Program1_(a) 22/ 11/2024
 Programming:
 *******************************
 '''        
@@ -21,6 +21,7 @@ import tkinter as tk
 from tkinter import messagebox
 import pickle
 from Analysis import CSVReader
+import numpy as np
 
 class MachineLearning:
 
@@ -31,7 +32,6 @@ class MachineLearning:
 
         csvReader = CSVReader()
         Regression = LinearRegression()
-
         dataFrame = csvReader.readCsv(filePath)
         X = dataFrame['Price']
         Y = dataFrame['ppi']
@@ -62,9 +62,14 @@ class MachineLearning:
         print('R^2 Value:',metrics.r2_score(Y, DT.predict(X.values.reshape(-1,1)))) # Measuring how well training data fits
        
 
-        # %matplotlib inline #plotting most important columns
-        # feature_importances = pd.Series(DT.feature_importances_, index=X.columns)
-        # feature_importances.nlargest(10).plot(kind='barh')
+        # Plot the data - Pasha
+        plt.scatter(X, Y, label='Actual Data')
+        plt.plot(X, prediction, label='Predicted Data', color='red')
+        plt.xlabel('Price')
+        plt.ylabel('ppi')
+        plt.title('Decision Tree Regression')
+        plt.legend()
+        plt.show()
     
     #random forest
     def RandomForest(self, filePath):
@@ -109,26 +114,31 @@ class MachineLearning:
         plt.ylabel('PPI')
         plt.title('AdaBoost Regression')
         plt.show()
-    #SVMRegressor
+    
+    
     def SVMRegressor(self, filePath):
         csvReader = CSVReader()
         dataFrame = csvReader.readCsv(filePath)
         X = dataFrame[['Price']]  # Independent variable
         Y = dataFrame['ppi']  # Dependent variable
-        
-        model = SVR(kernel='rbf')  # You can experiment with different kernels like 'linear', 'poly', etc.
+
+        model = SVR(kernel='rbf')  # 'linear', 'poly', 'rbf', 'sigmoid
         model.fit(X, Y)
-        
+
         predictions = model.predict(X)
         print("SVM R2 score:", r2_score(Y, predictions))
-        print("SVM RMSE:", mean_squared_error(Y, predictions, squared=False))
-        
-        # Optional: Plot results for testing
+        print("SVM RMSE:", np.sqrt(mean_squared_error(Y, predictions)))
+
+        # I implemented a linear line for the SVM Regression Graph instead for you -Pasha
         plt.scatter(X, Y)
-        plt.plot(X, predictions, color='purple')
+        z = np.polyfit(X.values.flatten(), Y.values, 1)
+        p = np.poly1d(z)
+        plt.plot(X, p(X.values.flatten()), "r--")
         plt.xlabel('Price')
         plt.ylabel('PPI')
         plt.title('SVM Regression')
+        plt.show()
+'''
 
 #Best model
     def selectBestModel(self, filePath):
@@ -192,7 +202,6 @@ class MachineLearning:
         
         #Commented out, we aren't using Tkinter. I'll be using NiceGUI. -Pasha
 
-        '''
         # Function to trigger the prediction
         # Create the Tkinter window
         root = tk.Tk()

@@ -80,7 +80,7 @@ class GUI:
                 ui.button("Random Forest", on_click=randomForest)
                 ui.button("SVM Regressor", on_click=svmRegressor)
             with ui.column():
-                ui.label("Table of Data (Mobile Phone Pricing)")
+                ui.label("Table of Data")
                 with ui.card():
                     ui.markdown(cleanedData.to_markdown(index=False))
 

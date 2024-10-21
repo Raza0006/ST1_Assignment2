@@ -48,29 +48,6 @@ class MachineLearning:
         feature_importances.nlargest(10).plot(kind='barh')
         '''
 
-
-#Saved just in case
-'''
-    def DecisionTree(self, filePath): #Rami 
-
-        csvReader = CSVReader()
-        dataFrame = csvReader.readCsv(filePath)
-        X = dataFrame['Price']
-        Y = dataFrame['ppi']
-        
-        regModel = DecisionTreeRegressor(max_depth=5,criterion='friedman_mse') #implementing good range
-        print(regModel) # Printing all the parameters of Decision Tree
-        DT=RegModel.fit(X_train,y_train)  # Creating the model on our training Data
-        prediction=DT.predict(X_test)
-        print('R2 Value:',metrics.r2_score(y_train, DT.predict(X_train)) # Measuring how well training data fits
-
-        # %matplotlib inline #plotting most important columns
-        feature_importances = pd.Series(DT.feature_importances_, index=Predictors)
-        feature_importances.nlargest(10).plot(kind='barh')
-
-        pass 
-'''
-    
     
 
         

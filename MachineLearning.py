@@ -6,6 +6,9 @@ from sklearn.ensemble import RandomForestRegressor
 from sklearn.metrics import mean_squared_error, r2_score
 from sklearn.ensemble import AdaBoostRegressor
 from sklearn.svm import SVR
+import tkinter as tk
+from tkinter import messagebox
+import pickle
 from Analysis import CSVReader
 
 class MachineLearning:
@@ -103,8 +106,79 @@ class MachineLearning:
         plt.xlabel('Price')
         plt.ylabel('PPI')
         plt.title('SVM Regression')
+#Best model
+    def select_best_model(self, filePath):
+        csvReader = CSVReader()
+        dataFrame = csvReader.readCsv(filePath)
+        X = dataFrame[['Price']]  # Independent variable
+        Y = dataFrame['ppi']  # Dependent variable
+        
+        models = {
+            'Linear Regression': self.LinearRegression(filePath),
+            'Decision Tree': self.DecisionTree(filePath),
+            'Random Forest': self.RandomForest(filePath),
+            'AdaBoost': self.AdaBoost(filePath),
+            'SVM': self.SVMRegressor(filePath)
+        }
+        
+        best_model = None
+        best_score = float('-inf')  # Initialize with a very low value for R-squared comparison
+        best_rmse = float('inf')    # Initialize with a very high value for RMSE comparison
+        
+        for model_name, model_predictions in models.items():
+            r2 = r2_score(Y, model_predictions)
+            rmse = mean_squared_error(Y, model_predictions, squared=False)
             
+            print(f'{model_name} R2 score: {r2}')
+            print(f'{model_name} RMSE: {rmse}')
             
+            # Choose the model with the highest R2 score
+            if r2 > best_score:
+                best_model = model_name
+                best_score = r2
+            
+            # Optionally, you could use RMSE to pick the model with the lowest error instead
+            # if rmse < best_rmse:
+            #    best_model = model_name
+            #    best_rmse = rmse
+        
+        print(f'Best model is: {best_model} with R2 score: {best_score}')
+        return best_model
+
+
+# Load the serialized model (Make sure best_model.pkl exists in the same directory)
+    def load_model():
+        with open('best_model.pkl', 'rb') as f:
+            model = pickle.load(f)
+        return model
+
+# Function to predict PPI based on the input price
+    def predict_ppi():
+        try:
+            price = float(price_entry.get())  # Get the price input from the user
+            model = load_model()
+            prediction = model.predict([[price]])  # Predict the PPI based on the price
+            messagebox.showinfo("Prediction", f"Predicted PPI: {prediction[0]}")
+        except ValueError:
+            messagebox.showerror("Input Error", "Please enter a valid number for the price.")
+        except Exception as e:
+            messagebox.showerror("Error", f"An error occurred: {e}")
+
+        # Create the Tkinter window
+        root = tk.Tk()
+        root.title("Mobile Price Prediction")
+        
+        # Input label and entry for price
+        tk.Label(root, text="Enter Price:").grid(row=0, column=0, padx=10, pady=10)
+        price_entry = tk.Entry(root)
+        price_entry.grid(row=0, column=1, padx=10, pady=10)
+        
+        # Button to trigger the prediction
+        predict_button = tk.Button(root, text="Predict PPI", command=predict_ppi)
+        predict_button.grid(row=1, column=1, padx=10, pady=10)
+        
+        # Run the Tkinter event loop
+        root.mainloop()
         
         
     

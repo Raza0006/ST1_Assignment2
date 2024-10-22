@@ -28,7 +28,7 @@ class MachineLearning:
     def __init__(self):
         pass   
         #Linear Regression
-    def LinearRegression(self, filePath): # Pasha's Code
+    def LinearRegression(self, filePath, ): # Pasha's Code
 
         csvReader = CSVReader()
         Regression = LinearRegression()
@@ -45,7 +45,18 @@ class MachineLearning:
         plt.ylabel('PPI')
         plt.title('Linear Regression')
         plt.show()
-    
+
+    def LinearRegressionNoGUI(self, filePath, input): # Pasha's Code
+
+        csvReader = CSVReader()
+        Regression = LinearRegression()
+        dataFrame = csvReader.readCsv(filePath)
+        X = dataFrame['Price']
+        Y = dataFrame['ppi']
+        Regression.fit(X.values.reshape(-1, 1), Y) # pass single collumn to data frame
+        print(Regression.score(X.values.reshape(-1, 1), Y)) # Get the coefficient to determine the gradient
+        output = Regression.predict([[input]])
+        return output
 
 
     def DecisionTree(self, filePath): #Rami's and Pasha's code

@@ -1,6 +1,6 @@
 '''
 *******************************
-Author: Raza, Manaswini, Lithika
+Author: Raza, Manaswini, Likitha
 u123456 Assessment 1_Program1_(a) 22/ 11/2024
 Programming:
 *******************************
@@ -81,8 +81,8 @@ class CSVReader:
     
     def visualizeScatterPlot(self, target, predictor): # Pasha's code
         plt.scatter(target, predictor)
-        plt.xlabel('Target')
-        plt.ylabel('Predictor')
+        plt.xlabel('Price')
+        plt.ylabel('PPI')
         plt.title('Scatter Plot with Pearson\'s Correlation Value')
         correlationValue = target.corr(predictor)
         plt.text(0.5, -0.5, 'Pearson\'s Correlation: {:.2f}'.format(correlationValue), ha='center', va='center')

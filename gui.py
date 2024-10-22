@@ -60,7 +60,10 @@ class GUI:
         def anova():
             plt.close()
             csvReader.anova(dataFrame, 'Price', 'cpu core')
-
+        def Predict(value):
+            plt.close()
+            machineLearning.LinearRegressionNoGUI(self.filePath, value)
+            ui.notify('Predicted Price: ' + str(machineLearning.LinearRegressionNoGUI(self.filePath, value)))
 
         ui.html('<div style="background-color: #4CAF50; color: #fff; padding: 10px; text-align: center; width: 100%; margin: 0;">Mobile Phone Price Trend Analysis - ST1 Assessment 2</div>')
         with ui.row():
@@ -75,6 +78,11 @@ class GUI:
 
                 # Buttons for algorithm models
                 ui.label("Algorithms:")
+                value = ui.input(label='Pixels Per Inch', placeholder='start typing',
+                        on_change=lambda e: result.set_text('you typed: ' + e.value),
+                        validation={'Input too long': lambda value: len(value) < 20})
+                result = ui.label()       
+                ui.button("Predict", on_click= lambda:Predict(int(value.value)))         
                 ui.button("Linear Regression", on_click=linearRegression)
                 ui.button("Decision Tree", on_click=decisionTree)
                 ui.button("Random Forest", on_click=randomForest)
